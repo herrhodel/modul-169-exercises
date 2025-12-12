@@ -3,7 +3,6 @@
 :::note
 
 - Befehle: `LABEL`, `CMD`
-
 - sowie: `-t`
 
 :::
