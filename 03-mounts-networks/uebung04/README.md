@@ -89,6 +89,7 @@ eine HTML-Datei namens index.html mit folgendem Inhalt:
   "start": "nodemon server.js",
     "live": "live-server public --port=3001 --no-browser"
   }
+},
 ```
 
 #### 7. Erstellen Sie ein Dockerfile:
