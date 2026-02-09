@@ -1,6 +1,6 @@
 FROM alpine
 
-LABEL Author="Michael Salm"
+LABEL Author="John Doo"
 
 ENTRYPOINT ["echo"]
 CMD ["Standard Ausgabe"]

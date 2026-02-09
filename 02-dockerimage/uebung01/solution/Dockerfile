@@ -1,5 +1,5 @@
 FROM ubuntu
 
-LABEL Author="Michael Salm"
+LABEL Author="John Doo"
 
 CMD ["echo", "Mein erstes Docker Image"]

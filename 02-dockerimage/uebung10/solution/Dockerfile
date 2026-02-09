@@ -1,5 +1,5 @@
 FROM ubuntu:24.04
-LABEL Author="Michael Salm"
+LABEL Author="John Doo"
 
 RUN apt-get update && apt-get -y upgrade && \
     apt-get install -y nginx

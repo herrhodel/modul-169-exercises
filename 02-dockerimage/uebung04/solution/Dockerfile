@@ -1,6 +1,6 @@
 FROM python:alpine3.20
 
-LABEL Author="Michael Salm"
+LABEL Author="John Doo"
 
 WORKDIR "/app"
 
