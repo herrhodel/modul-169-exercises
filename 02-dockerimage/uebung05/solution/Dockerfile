@@ -1,8 +1,8 @@
 # Use the latest Alpine image
-FROM alpine:latest
+FROM alpine:3.20
 
-# Update the package index and install Python 3.10 and pip
-RUN apk add --no-cache python3=3.12.8-r1
+# Update the package index and install Python 3 and pip
+RUN apk add --no-cache python3
 RUN apk add --no-cache py3-pip
 
 # Set the working directory

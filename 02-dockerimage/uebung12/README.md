@@ -69,10 +69,10 @@ CMD ["npm", "start"]
 - Nun optimieren wir das Image, indem wir ein Multistage Build kreieren. Das
   heisst, wir verlagern die Installation der Abhängigkeiten in einen separaten
   Build Stage.
-  - Kreieren Sie eine Datei mit dem Namen _Dockerfile_MultiStage_ und kopieren
+  - Kreieren Sie eine Datei mit dem Namen _Dockerfile.multistage_ und kopieren
     Sie den folgenden Inhalt hinein.
 
-```Dockerfile title="Dockerfile_MultiStage"
+```Dockerfile title="Dockerfile.multistage"
 # Stage 1: Build stage
 FROM node:14 AS builder
 # Set the working directory
@@ -97,8 +97,10 @@ CMD ["npm", "start"]
 ```
 
 - Bilden Sie das Image mit dem Tag mit dem Befehl
-  `docker buildx build -t uebung12ms -f Dockerfile_MultiStage .`.
-  - Mit `-f Dockerfile_MultiStage` geben wir an, welches _Dockerfile_ verwendet
+  `docker buildx build -t uebung12ms -f Dockerfile.multistage .`.
+  - Mit `-f Dockerfile.multistage` geben wir an, welches _Dockerfile_ verwendet
     werden soll.
 - Vergleichen Sie die beiden _Dockerfiles_.
 - Vergleichen Sie die beiden Images auf Grösse und Layers.
+  - `docker inspect uebung12`
+  - `docker inspect uebung12ms`

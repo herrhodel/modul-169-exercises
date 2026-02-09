@@ -37,5 +37,7 @@ CMD ["cat", "file1.txt", "file2.txt", "file3.txt"]
 - Erklären Sie, was die einzelnen Schritte machen.
 - Bilden Sie das Image mit dem Tag `-t uebung11`
 - Erstellen Sie einen Container mit dem Befehl `docker run --rm uebung11`
-- Führen Sie den Container interaktiv aus und überprüfen Sie mit dem Befehl `ls`
-  im Ordner `/app`, ob wirklich nur die Textdateien vorhanden sind.
+- Führen Sie den Container "interaktiv" aus und überprüfen Sie mit dem Befehl
+  `ls` im Ordner `/app`, ob wirklich nur die Textdateien vorhanden sind.
+  - `docker run -it uebung11 /bin/bash`
+  - `ls` im Container listet die Files

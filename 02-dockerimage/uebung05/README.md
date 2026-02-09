@@ -13,11 +13,11 @@ alpine.
 - Installieren Sie _python 3.12_, indem Sie folgende Befehle ergänzen:
 
 ```Dockerfile
-# Use the latest Alpine image
-FROM alpine:latest
+# Use the Alpine image 3.20
+FROM alpine:3.20
 
-# Update the package index and install Python 3.12 and pip
-RUN apk add --no-cache python3=3.12.8-r1
+# Update the package index and install Python 3 and pip
+RUN apk add --no-cache python3
 RUN apk add --no-cache py3-pip
 
 # Set the working directory

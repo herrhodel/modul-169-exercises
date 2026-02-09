@@ -7,4 +7,4 @@
 - Bilden Sie das Image mit dem Tag `-t uebung04`
 - Erstellen Sie einen Container vom eben erstellten Image mit dem Befehlt
   `docker run uebung04`.
-  - Es sollte /app ausgegeben werden.
+  - Es sollte "/app" ausgegeben werden.
