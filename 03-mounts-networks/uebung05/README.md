@@ -14,14 +14,15 @@ um zu überprüfen, ob die Daten weiterhin vorhanden sind.
   ein Volume zu erstellen, das die Daten speichert:
 
 ```bash
-docker run -d --name
-  my_mariadb_container -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=mydatabase
-  -v mariadb_data:/var/lib/mysql -p 3306:3306 mariadb
+docker run -d --name my_mariadb_container \
+  -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=mydatabase \
+  -v mariadb_data:/var/lib/mysql \
+  -p 3306:3306 mariadb
 ```
 
-- Hierbei wird ein Docker-Volume namens mariadb_data erstellt, das die
-  Datenbankdaten speichert. Das Root-Passwort wird auf root gesetzt, und eine
-  Datenbank namens mydatabase wird erstellt.
+- Hierbei wird ein Docker-Volume namens `mariadb_data` erstellt, das die
+  Datenbankdaten speichert. Das Root-Passwort wird auf `root` gesetzt, und eine
+  Datenbank namens `mydatabase` wird erstellt.
 
 #### 2. Überprüfen Sie, ob der Container läuft
 
@@ -81,7 +82,8 @@ docker rm my_mariadb_container
 ```bash
 docker run -d --name my_mariadb_container \
   -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=mydatabase \
-  -v mariadb_data:/var/lib/mysql -p 3306:3306 mariadb
+  -v mariadb_data:/var/lib/mysql \
+  -p 3306:3306 mariadb
 ```
 
 #### 8. Überprüfen Sie die Daten erneut
@@ -89,7 +91,7 @@ docker run -d --name my_mariadb_container \
 - Verwenden Sie wieder den Befehl, um die MariaDB-Shell zu öffnen:
 
 ```bash
-docker exec -it my_mariadb_container mysql -u root -p
+docker exec -it my_mariadb_container mariadb -u root -p
 ```
 
 #### 9. Geben Sie das Passwort root ein, wenn Sie dazu aufgefordert werden
@@ -99,7 +101,7 @@ docker exec -it my_mariadb_container mysql -u root -p
 
 ```sql
 USE mydatabase;
-SELECT \* FROM mytable;
+SELECT * FROM mytable;
 ```
 
 ## Fazit
@@ -114,5 +116,6 @@ Wenn Sie mit der Übung fertig sind und die Ressourcen freigeben möchten, könn
 Sie den Docker-Volume mit folgendem Befehl entfernen:
 
 ```bash
+docker container prune
 docker volume rm mariadb_data
 ```

@@ -22,8 +22,8 @@ docker run --rm -p 8080:80 nginx
 
 #### 2. Erstellen Sie einen Ordner auf Ihrem Host-System:
 
-- Erstellen Sie einen neuen Ordner mit dem Namen HTML, in dem Sie die HTML-Datei
-  speichern möchten.
+- Erstellen Sie einen neuen Ordner mit dem Namen `html`, in dem Sie die
+  HTML-Datei speichern möchten.
 
 #### 3. Erstellen Sie eine HTML-Datei:
 

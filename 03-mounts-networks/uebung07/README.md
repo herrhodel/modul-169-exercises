@@ -22,7 +22,7 @@ docker network create db-net
 - Führen Sie den folgenden Befehl aus, um den MariaDB-Container zu starten:
 
 ```bash
-docker run -d \
+docker run -d
   --name mariadb \
   --network db-net \
   -e MYSQL_ROOT_PASSWORD=rootpassword \
@@ -54,8 +54,9 @@ docker run -d \
 
 #### 4. Zugriff auf phpMyAdmin
 
-- Öffnen Sie einen Webbrowser und gehen Sie zu http://localhost:8080. Sie
-  sollten die phpMyAdmin-Anmeldeseite sehen.
+- Öffnen Sie einen Webbrowser und gehen Sie zu
+  [http://localhost:8080](http://localhost:8080). Sie sollten die
+  phpMyAdmin-Anmeldeseite sehen.
 
 #### 5. Anmelden bei phpMyAdmin
 

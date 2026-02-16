@@ -63,3 +63,32 @@ cat /shared/file_from_container1.txt
 ```bash
 cat /shared/file_from_container2.txt
 ```
+
+#### 8. Vergewissern Sie sich, dass wirklich zwei container laufen
+
+- Öffnen Sie ein neues Terminalfenster und prüfen die Prozesse. Es sollten zwei
+  Prozesse sichtbar sein.
+
+```bash
+docker ps
+```
+
+#### 9. Zeigen sie, dass nur Dateien im Ordner /shared geteilt werden
+
+- Erstellen Sei im Terminal vom Container 1 eine Datei im Ordner `/tmp`.
+
+```bash
+echo "Dies ist eine Datei nur im Container 1." > /tmp/file_from_container1.txt
+```
+
+- Überprüfen Sie, ob die Datei existiert.
+
+```bash title="Container 1"
+ls /tmp
+```
+
+- Der gleiche Befehl im Container 2 sollte die Datei nicht darstellen
+
+```bash title="Container 2"
+ls /tmp
+```
