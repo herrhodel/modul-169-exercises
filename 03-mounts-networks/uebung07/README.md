@@ -1,87 +1,134 @@
-## MariaDB und phpMyAdmin im Docker-Netzwerk
+## Docker Networking und DNS
 
 ### Ziel
 
-Sie sollen lernen, wie man einen MariaDB-Container und einen
-phpMyAdmin-Container erstellt und konfiguriert, um über eine Weboberfläche auf
-die Datenbank zuzugreifen.
+Sie lernen, wie Docker-Netzwerke funktionieren, wie Container über ihre Namen,
+IDs und IP-Adressen kommunizieren können und wie die Netzwerkkonfiguration den
+Zugriff zwischen Containern beeinflusst.
 
 ### Schritte
 
-#### 1. Erstellen Sie ein Netzwerk:
+#### 1. Erstelle die Docker-Images:
 
-- Zuerst erstellen Sie ein Docker-Netzwerk mit dem Namen `db-net`, in dem die
-  Container kommunizieren können:
+- Erstelle eine Datei namens Dockerfile mit folgendem Inhalt:
 
-```bash
-docker network create db-net
+```Dockerfile title="Dockerfile"
+FROM ubuntu:latest
+
+RUN apt-get update && apt-get install -y iputils-ping \
+  && rm -rf /var/lib/apt/lists/\*
+
+CMD ["bash"]
 ```
 
-#### 2. Starten Sie den MariaDB-Container
+:::note
 
-- Führen Sie den folgenden Befehl aus, um den MariaDB-Container zu starten:
+- `iputils-ping` ermöglicht es, im Container einen anderen Container
+  "anzupingen".
 
-```bash
-docker run -d
-  --name mariadb \
-  --network db-net \
-  -e MYSQL_ROOT_PASSWORD=rootpassword \
-  -e MYSQL_DATABASE=mydatabase \
-  mariadb:latest
-```
+:::
 
-- **MYSQL_ROOT_PASSWORD**: Setzt das Passwort für den Root-Benutzer.
-- **MYSQL_DATABASE**: Erstellt eine Datenbank mit dem Namen mydatabase.
+#### 2. Bau das Docker-Image
 
-#### 3. Starten Sie den phpMyAdmin-Container
-
-- Führen Sie den folgenden Befehl aus, um den phpMyAdmin-Container zu starten:
+- Erstellen Sie aus dem Dockerfile ein Docker-Image:
 
 ```bash
-docker run -d \
-  --name phpmyadmin \
-  --network db-net \
-  -e PMA_HOST=mariadb \
-  -e PMA_USER=root \
-  -e PMA_PASSWORD=rootpassword \
-  -p 8080:80 \
-  phpmyadmin/phpmyadmin
+docker buildx build -t my-ubuntu-image .
 ```
 
-- **PMA_HOST**: Gibt den Hostnamen des MariaDB-Containers an.
-- **PMA_USER**: Setzt den Benutzer für den Zugriff auf die Datenbank.
-- **PMA_PASSWORD**: Setzt das Passwort für den Benutzer.
+#### 3. Erstelle Netzwerke
 
-#### 4. Zugriff auf phpMyAdmin
+- Erstellen Sie folgende zwei Docker-Netzwerke:
 
-- Öffnen Sie einen Webbrowser und gehen Sie zu
-  [http://localhost:8080](http://localhost:8080). Sie sollten die
-  phpMyAdmin-Anmeldeseite sehen.
+```bash
+docker network create mynetwork
+docker network create othernetwork
+```
 
-#### 5. Anmelden bei phpMyAdmin
+#### 4. Starte die Container
 
-- Melden Sie sich, falls nötig, mit den folgenden Anmeldedaten an:
-  - **Benutzername**: root
-  - **Passwort**: rootpassword
+- Starten Sie zwei Container im `mynetwork` und einen im `othernetwork`:
 
-#### 6. Datenbank bearbeiten
+```bash title="bash auf dem Host"
+docker run -itd --name container1 --network mynetwork my-ubuntu-image
+docker run -itd --name container2 --network mynetwork my-ubuntu-image
+docker run -itd --name container3 --network othernetwork my-ubuntu-image
+```
 
-- Nach der Anmeldung sollten Sie die Datenbank `mydatabase` sehen.
-- Sie können Tabellen erstellen, Daten hinzufügen, bearbeiten und löschen.
+:::note
 
-#### 7. Beobachtungen und Diskussion
+- Mit dem Parameter `-itd` starten Sie den Container interaktiv _(it)_ im
+  Hintergrund _(d)_, das heisst, der Container läuft weiter _(mit bash)_, auch
+  wenn Sie nicht im Container sind.
 
-- Diskutieren Sie, wie die Container miteinander kommunizieren und welche Rolle
-  das Docker-Netzwerk dabei spielt.
-- Erklären Sie die Bedeutung von Umgebungsvariablen beim Starten der Container.
+:::
 
-#### 8. Container stoppen und entfernen
+#### 5. Zugriff auf die Container
+
+- Um innerhalb vom container1 Befehle ausführen zu können, öffnen Sie eine Shell
+  im container1:
+
+```bash title="bash auf dem Host"
+docker exec -it container1 /bin/bash
+```
+
+#### 6. Pingen von container2
+
+- In der Shell von container1, führe den folgenden Befehl aus:
+
+```bash title="bash in container1"
+ping container2
+```
+
+#### 7. Ermitteln der IP-Adresse und Container-ID von container2
+
+- Öffnen Sie ein neues Host-Terminal (nicht in einem Container) und finden Sie
+  die IP-Adresse mit folgendem dem Befehl:
+
+```bash title="bash auf dem Host"
+docker inspect container2
+```
+
+- Sie finden den Eintrag weit unten unter "Networks/mynetwork/IPAdress" (z.B.
+  172.17.0.2).
+- Mit `docker ps` sollten Sie die Container-ID ermitteln können (z.B.
+  ef20d820ae81).
+
+#### 8. Pingen von container2 über die Container-ID und IP-Adresse
+
+Gehen Sie zurück zu der Shell von container1 und führen Sie die folgenden
+Befehle aus:
+
+```bash title="bash in container1"
+ping <CONTAINER_ID> # via Container-ID
+ping <CONTAINER_IP> # via Container-IP
+```
+
+#### 8. Pingen von container3
+
+- Versuchen Sie, container3 vom container1 Terminal aus anzupingen:
+
+```bash title="bash in container1"
+ping container3
+```
+
+- **Erwartetes Ergebnis**: Der Ping sollte fehlschlagen, da container3 **in
+  einem anderen Netzwerk** ist.
+
+#### 9. Beobachtungen und Diskussion
+
+- Diskutieren Sie mit der Nachbarin, warum der Ping zu container3 nicht
+  funktioniert hat.
+- Besprechen Sie die Bedeutung von Netzwerken in Docker und wie sie die
+  Kommunikation zwischen Containern beeinflussen.
+
+#### 10. Container stoppen und entfernen:
 
 - Nachdem die Übung abgeschlossen ist, können Sie die Container stoppen und
   entfernen:
 
 ```bash
-docker stop mariadb phpmyadmin
-docker rm mariadb phpmyadmin
-docker network rm db-net
+docker stop container1 container2 container3
+docker rm container1 container2 container3
+docker network rm mynetwork othernetwork
 ```
