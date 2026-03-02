@@ -35,14 +35,17 @@ Das Netzwerk mit dem Namen bridge ist das Standardnetzwerk und wird verwendet,
 wenn nichts anderes angegeben wird. Die Netzwerkarchitektur lässt sich wie folgt
 darstellen:
 
-!!!bild!!! 1.7.1 Abb. 1: Bridge Netzwerk
+!!!bild!!!
+
+1.7.1 Abb. 1: Bridge Netzwerk
 
 Wir wollen diese Architektur nun nachvollziehen: Die Ausgabe von `ifconfig` auf
 dem Host zeigt unter anderem das **docker0** interface an:
 
 :::info
 
-- **docker0** wird nur **auf Linux** angezeigt.
+- `ifconfig` zeigt nur auf Linux **docker0** an.
+- Unter MacOs (und wahrscheinlich auch Windows) ist es abstrahiert.
 
 :::
 
@@ -236,7 +239,8 @@ docker network disconnect bridge ubuntu_1
 anschliessend wird er zu my_net hinzugefügt und neu gestartet
 
 ```bash
-docker network connect my_net ubuntu_1 docker start -i ubuntu_1
+docker network connect my_net ubuntu_1
+docker start -i ubuntu_1
 ```
 
 docker inspect zeigt nun beide Container an:

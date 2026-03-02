@@ -22,7 +22,7 @@ docker network create db-net
 - Führen Sie den folgenden Befehl aus, um den MariaDB-Container zu starten:
 
 ```bash
-docker run -d
+docker run -d \
   --name mariadb \
   --network db-net \
   -e MYSQL_ROOT_PASSWORD=rootpassword \
