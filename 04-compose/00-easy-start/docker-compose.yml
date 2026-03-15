@@ -1,11 +1,17 @@
-version: "3.9"
+version: "3.8"
+
 services:
   api:
     build:
       context: ./api
       dockerfile: Dockerfile.api
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
     ports:
-      - 3000:3000
+      - "3000:3000"
     networks:
       - my-network
   ui:
@@ -13,7 +19,9 @@ services:
       context: ./ui
       dockerfile: Dockerfile.ui
     ports:
-      - 8070:80
+      - "8080:80"
+    depends_on:
+      - api
     networks:
       - my-network
 

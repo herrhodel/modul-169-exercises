@@ -1,0 +1,11 @@
+version: "3"
+services:
+  ubuntu:
+    image: ubuntu
+    container_name: compose-uebung02
+    tty: true # benötigt, damit der container nicht direkt stopt
+    volumes:
+      - ubuntu-volume:/volume
+
+volumes:
+  ubuntu-volume:
