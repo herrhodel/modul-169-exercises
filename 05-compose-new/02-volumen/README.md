@@ -40,7 +40,7 @@ docker run --name compose-uebung02 -v ubuntu-volume:/volume ubuntu
 8. Erstellen Sie eine neue Datei im gemounteten Volumen:
 
    ```bash
-   echo "hallo welt" > /volumen/hallo-welt.txt
+   echo "hallo welt" > /volume/hallo-welt.txt
    ```
 
 9. Prüfen Sie, ob die Datei hier ist:
@@ -71,7 +71,7 @@ docker run --name compose-uebung02 -v ubuntu-volume:/volume ubuntu
 13. Schauen Sie nun ob docker compose das Volumen erstellt hat mit dem Befehl:
 
     ```bash
-    docker volumes ls
+    docker volume ls
     ```
 
 14. Es sollte ein Volumen sichtbar sein das auf `_ubuntu-volume` endet. Der
@@ -101,6 +101,14 @@ docker run --name compose-uebung02 -v ubuntu-volume:/volume ubuntu
     ```
 
 20. Erstellen Sie ein Diagramm mit dem Befehl:
+
+    :::info
+
+    - Bechten Sie, dass die docker-compose.yml Datei mit einer `version: "3"`
+      [starten muss](https://github.com/pmsipilot/docker-compose-viz/issues/60),
+      damit die Visualisierung funktioniert.
+
+    :::
 
     ```bash
     docker run --rm -it --name dcv -v $(pwd):/input pmsipilot/docker-compose-viz render -m image docker-compose.yml

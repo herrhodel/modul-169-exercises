@@ -111,6 +111,14 @@ ein Verbindungsfehler.
 
 13. Erstellen Sie ein Diagramm mit dem Befehl:
 
+ :::info
+
+ - Bechten Sie, dass die docker-compose.yml Datei mit einer `version: "3"`
+   [starten muss](https://github.com/pmsipilot/docker-compose-viz/issues/60),
+   damit die Visualisierung funktioniert.
+
+ :::
+
 ```bash
 docker run --rm -it --name dcv -v $(pwd):/input pmsipilot/docker-compose-viz render -m image docker-compose.yml
 ```
