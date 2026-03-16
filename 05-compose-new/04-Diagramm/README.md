@@ -21,7 +21,7 @@ folgenden Zusatzinformationen. Starten und Stoppen Sie die Applikation.
 ### Datenbank
 
 - Name im Diagramm ersichtlich
-- Docker Image: mariadb
+- Docker Image: mariadb:lts
 - Ports im Diagramm ersichtlich
 - Volumen im Diagramm ersichtlich
 - Umgebungsvariablen
@@ -43,7 +43,7 @@ folgenden Zusatzinformationen. Starten und Stoppen Sie die Applikation.
 ### Web Applikation
 
 - Name im Diagramm ersichtlich
-- Docker Image: wordpress
+- Docker Image: wordpress:latest
 - Ports im Diagramm ersichtlich
 - Umgebungsvariablen
   - WORDPRESS_DB_HOST=db
