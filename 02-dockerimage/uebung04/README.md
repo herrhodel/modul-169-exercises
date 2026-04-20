@@ -1,4 +1,11 @@
-## Übung 4
+## Übung 4 - WORKDIR
+
+:::note
+
+- Zusätzlicher Befehl: `WORKDIR`
+
+:::
+
 
 - Erstellen Sie ein _Dockerfile_, welches als Basis-Image `python:alpine3.20`
   verwendet. Fügen Sie wieder das `LABEL Author="Ihr Name"` hinzu. Ändern Sie

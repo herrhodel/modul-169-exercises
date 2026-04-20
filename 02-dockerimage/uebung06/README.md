@@ -1,13 +1,9 @@
-## Übung 6
-
-:::note
-
-- Zusätzliches Feature: Optimierung
-
-:::
+## Übung 6 - Optimierung
 
 Wir optimieren das _Dockerfile_ der Übung 5, indem wir die Installation von
-Python und Pip in **einen `RUN` Befehl** vereinen.
+Python und Pip in **einen `RUN` Befehl** mit dem Operator `&&` vereinen. Da
+solche Befehle schnell sehr lang werden können, verwenden wir zudem das Zeichen
+`\` um _Bash_-Befehle auf mehrere Zeilen aufteilen können.
 
 - Kopieren Sie das Dockerfile der Übung 5
 - Ersetzen Sie die beiden Zeilen (rot) mit folgendem Befehl (grün). Dies führt
@@ -22,16 +18,17 @@ RUN apk add --no-cache python3
 RUN apk add --no-cache py3-pip
 //highlight-red-end
 //highlight-green-start
-RUN apk add --no-cache python3 py3-pip
+RUN apk add --no-cache python3 \
+  && apk add --no-cache py3-pip
 //highlight-green-end
 ...
 ```
 
 - Bilden Sie das Image mit dem Tag `-t uebung06`
 - Überprüfen Sie, ob das Image vorhanden ist. Vergleichen Sie die Grösse mit dem
-  Image _uebung05_. Sie sollten einen kleinen Grössenunterschied feststellen
-  können. In diesem Fall ist es nicht viel, kann aber je nach Installation viel
-  ausmachen.
+  Image _uebung05_ (`docker inspect uebung05` resp. `uebung06`). Sie sollten
+  einen kleinen Grössenunterschied feststellen können. In diesem Fall ist es
+  nicht viel, kann aber je nach Installation viel ausmachen.
 - Sie können die erstellten Layer sehen, indem Sie folgenden Befehl ausführen:
   `docker image inspect uebung05`. Unter dem zweitletzten Eintrag RootFS des
   angezeigten JSON sieht man die Layer. Bei _uebung05_ sollten es 4 sein, bei

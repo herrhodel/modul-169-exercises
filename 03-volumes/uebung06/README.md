@@ -1,13 +1,5 @@
 ## Netzwerk Grundlagen
 
-:::caution
-
-- Diese Übung wurde hinzugefügt, die Nummerierung verschiebt sich!
-- Euere Kopie vom excercises Repository ist bestimmt hinten nach.
-- Ordner Uebung06 nach Uebung07 und Uebung07 nach Uebung08 umbenennen.
-
-:::
-
 Hier geht es darum wie mehrere Dockercontainer untereinander kommunizieren
 können. Beispielsweise muss ein Web-Container mit einem Datenbank-Container
 kommunizieren können und an seine Daten zu kommen.

@@ -1,4 +1,4 @@
-## Übung 2
+## Übung 2 - ENTRYPOINT
 
 :::note
 

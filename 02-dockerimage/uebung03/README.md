@@ -1,10 +1,4 @@
-## Übung 3
-
-:::note
-
-- Zusätzlicher Befehl: `WORKDIR`
-
-:::
+## Übung 3 - Standard-Arbeitsverzeichnis
 
 - Erstellen Sie ein _Dockerfile_, welches als Basis-Image `python:alpine3.20`
   verwendet. Fügen Sie wieder das `LABEL Author="Ihr Name"` hinzu. Der
