@@ -33,7 +33,7 @@ CMD ["bash"]
 - Erstellen Sie aus dem Dockerfile ein Docker-Image:
 
 ```bash
-docker buildx build -t my-ubuntu-image .
+docker build -t my-ubuntu-image .
 ```
 
 #### 3. Erstelle Netzwerke

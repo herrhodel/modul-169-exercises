@@ -97,7 +97,7 @@ CMD ["npm", "start"]
 ```
 
 - Bilden Sie das Image mit dem Tag mit dem Befehl
-  `docker buildx build -t uebung12ms -f Dockerfile.multistage .`.
+  `docker build -t uebung12ms -f Dockerfile.multistage .`.
   - Mit `-f Dockerfile.multistage` geben wir an, welches _Dockerfile_ verwendet
     werden soll.
 - Vergleichen Sie die beiden _Dockerfiles_.

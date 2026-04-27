@@ -129,7 +129,7 @@ CMD ["npm", "start"]
   Docker-Image zu erstellen:
 
 ```bash
-docker buildx build -t my_node_app .
+docker build -t my_node_app .
 ```
 
 #### 8. Starten Sie den Docker-Container mit dem gemounteten Source-Code:
