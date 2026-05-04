@@ -11,7 +11,7 @@ welches Python-Skript laufen soll. Zudem wollen wir mit einem sogenannten
 _.dockerignore_ File definieren, was ignoriert werden soll, wenn wir ein ganzes
 Verzeichnis kopieren.
 
-- Kopieren Sie den Ordner von _uebung07_ und nennen Sie in um in _uebung08_.
+- Kopieren Sie das `Dockerfile` und `app.py` von der _uebung07_.
 - Erstellen Sie ein weiteres Python-Skript mit dem Namen `random_number.py` und
   kopieren Sie das unten stehende Skript hinein.
   - Achten Sie wieder auf die Einrückungen.
@@ -29,7 +29,7 @@ if __name__ == "__main__":
 
 - Kopieren Sie im _Dockerfile_ den gesamten Ordnerinhalt in das
   Arbeitsverzeichnis hinein. Dies erreichen Sie, indem Sie `COPY . .` ergänzen.
-  Den anderen COPY Befehl brauchen Sie nicht mehr.
+  Den anderen `COPY` Befehl brauchen Sie nicht mehr.
 - Damit das _Dockerfile_ selber nicht in das Image kopiert wird, erstellen Sie
   eine Datei mit dem Namen `.dockerignore` und ergänzen sie mit dem Eintrag
   `Dockerfile` wie folgt.
