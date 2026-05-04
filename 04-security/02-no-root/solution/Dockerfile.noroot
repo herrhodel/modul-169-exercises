@@ -1,0 +1,14 @@
+FROM node:24
+# Eigenen Benutzer und Gruppe anlegen und verwenden
+RUN adduser --system --group --home /home/appuser appuser
+WORKDIR /app
+# Rechte setzen
+RUN chown appuser:appuser /app
+# User appuser verwenden
+USER appuser
+# Berechtigungen geben
+COPY --chown=appuser:appuser package*.json ./
+COPY --chown=appuser:appuser . .
+RUN npm install
+# App starten
+CMD ["node", "server.js"]

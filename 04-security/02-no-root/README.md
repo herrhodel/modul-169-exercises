@@ -4,40 +4,89 @@
 
 In dieser Übung geht des darum ein `Dockerfile`, welches den USER `root`
 verwendet so umzubauen, dass der Container mit einem USER `appuser` arbeitet,
-welcher nur Schreibrecht auf das `WORKDIR` /app hat.
+welcher nur Schreibrecht auf das `WORKDIR` "/app" hat.
 
 ### Schritte
 
-1. Erstellt ein `Dockerfile` mit folgendem Inhalt:
+1. Erstellen Sie eine Datei mit dem Namen `package.json` und kopieren Sie den
+   untenstehenden Inhalt hinein. In dieser Datei werden die Abhängigkeiten und
+   weiteres gespeichert.
 
-```Dockerfile
-FROM ubuntu:22.04
-RUN apt-get update && apt-get install -y curl \
-    && curl -fsSL https://deb.nodesource.com | bash - \
-    && apt-get install -y nodejs && rm -rf /var/lib/apt/lists/*
-WORKDIR /app
-COPY . .
-RUN npm install --production
-EXPOSE 3000
-CMD ["node", "index.js"]
+```json title="package.json"
+{
+  "name": "multistage-node-example",
+  "version": "1.0.0",
+  "description": "A simple Node.js web server using Express.js",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
 ```
 
-2. Baut das Image mit dem Tag `no-root`.
-3. Startet es **auf Port 3000** und öffnet http://localhost:3000.
-   - Achtung: Port-Mapping.
-4. Öffnet eine Shell im Container mit `docker exec -it no-root /bin/bash`.
-5. Prüft den User mit dem Befehl `whoami`.
-6. Stoppt den Container und öffnet das `Dockerfile`.
-7. Erstellt einen Benutzer mit im `Dockerfile` mit folgendem Befehl:
-   - Der Befehl muss vor `WORKDIR` stehen.
-   - `RUN adduser --system --group --home /home/appuser appuser`.
-8. Gebt dem User Rechte auf `/app` mit folgendem Befehl nach `WORKDIR`
-   - `RUN chown appuser:appuser /app`.
-9. Verwendet den user _appuser_ mit folgendem Befehl, nach dem die Rechte
-   gesetzt wurden.
-   - `USER appuser`.
-10. Der Befehl `COPY` muss mit dem Parameter `--chown=appuser:appuser` ergänzt
-    werden, damit der `appuser` Berechtigung auf die kopierten Dateien hat.
-11. Baut das Image erneut und startet es.
-12. Öffnet eine Shell im Container mit `docker exec -it no-root /bin/bash`.
-13. Prüft den User mit dem Befehl `whoami`.
+2. Kreieren Sie die Datei für den Server mit dem Namen `server.js` und kopieren
+   Sie folgenden Code hinein:
+
+```javascript title="server.js"
+const express = require("express");
+const app = express();
+const port = 3000;
+
+app.get("/", (req, res) => {
+  res.send(
+    "Hello, World! This is a simple Node.js web server using Express.js."
+  );
+});
+
+app.listen(port, () => {
+  console.log(`Server is running at http://localhost:${port}`);
+});
+```
+
+3. Erstellt ein `Dockerfile` mit folgendem Inhalt:
+
+```Dockerfile
+FROM node:24
+WORKDIR /app
+COPY package*.json ./
+COPY . .
+RUN npm install
+EXPOSE 3000
+CMD ["node", "server.js"]
+```
+
+12. Baut das Image und startet es und öffnet http://localhost:3000 im Browser
+    - `docker build -t security:with-root .`
+    - `docker run --rm -d -p 3000:3000 --name with-root security:with-root`.
+13. Öffnet eine Shell im Container mit `docker exec -it with-root /bin/bash`.
+14. Prüft den User mit dem Befehl `whoami`.
+15. Stoppt den Container mit `docker stop with-root`.
+16. Erstellt eine neue Datei `Dockerfile.noroot` und kopiert folgenden Inhalt
+    hinein.
+
+```Dockerfile title="Dockerfile.noroot"
+FROM node:24
+# Eigenen Benutzer und Gruppe anlegen und verwenden
+RUN adduser --system --group --home /home/appuser appuser
+WORKDIR /app
+# Rechte setzen
+RUN chown appuser:appuser /app
+# User appuser verwenden
+USER appuser
+# Berechtigungen geben
+COPY --chown=appuser:appuser package*.json ./
+COPY --chown=appuser:appuser . .
+RUN npm install
+# App starten
+CMD ["node", "server.js"]
+```
+
+12. Baut das Image erneut und startet es.
+    - `docker build -f Dockerfile.noroot -t security:no-root .`
+    - `docker run --rm -d -p 3000:3000 --name no-root security:no-root`.
+13. Öffnet eine Shell im Container mit `docker exec -it no-root /bin/bash`.
+14. Prüft den User mit dem Befehl `whoami`.
+15. Stoppt den Container mit `docker stop no-root`

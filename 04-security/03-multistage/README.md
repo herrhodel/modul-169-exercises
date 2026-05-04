@@ -90,24 +90,20 @@ CMD ["npm", "start"]
 ```Dockerfile title="Dockerfile.multistage"
 # Stage 1: Build stage
 FROM node:24 AS builder
-# Set the working directory
 WORKDIR /app
-# Copy package.json and package-lock.json
 COPY package*.json ./
-# Copy the rest of the application code
-COPY server.js ./
-# Install dependencies
+# Installiert die Pakete
 RUN npm install
+COPY . .
 
 # Stage 2: Production stage
 FROM node:24-slim
-# Set the working directory
 WORKDIR /app
-# Copy only the necessary files from the builder stage
+# Use USER node with limited rights
+USER node
+# Nur die nötigen Dateien vom Stage "builder" kopieren
 COPY --from=builder /app .
-# Expose the port the app runs on
 EXPOSE 3000
-# Command to run the application
 CMD ["npm", "start"]
 ```
 
