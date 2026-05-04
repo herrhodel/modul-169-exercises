@@ -25,7 +25,7 @@ EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
 ```
 
-2. Baut das Image mit dem Tag `minimal-image`
+2. Baut das Image mit dem Tag `security:minimal-image`.
 3. Startet es **auf Port 8080** und öffnet http://localhost:8080.
    - Achtung: Port-Mapping.
 4. Findet heraus, **welches Paket** genau installiert wird.
