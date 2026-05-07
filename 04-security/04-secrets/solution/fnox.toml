@@ -1,0 +1,8 @@
+default_provider = "age"
+
+[providers.age]
+type = "age"
+recipients = ["age12ypc68qwzmun9att8uvvn06m59jl2exduhgjm0yq9y9xufjr6g2qcxjhm9"]
+
+[secrets]
+MY_PASSWORD= { provider = "age", value = "YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBVNUd0bDlYd2Q5Q01DL2ZDRVllb3hEZ1kxT3ROalJwV0FLS0R0bFZBZnpjClVzWGRKY0srQTNScDJSYmFnaEtUN2F1bzNQNUZKN0FpQXBpcjZ2U3hCSkEKLT4gaS1ncmVhc2UKeFZiem9NNnF4c2JKUkZhMlBNWTNad3cwanFITDVlSFJDeHFjT21IYUR2VXZHRzBiZEliVEtYMzUzdzJ6cVRPRApxTVJQRitERTFnTlF2OGpWczVPeU5aNkRMNXppL24veHR1TQotLS0gNm5CYy9GRkdsQUNHVHc0Nkh4REZPS2haYlZnRjJzVGtmRC9Vb253Wmx4QQoZKG5+wBYmAXo+fEsGXQsnz9nP9pwguYO6OeF4O8sAIcE3mIkNKPGH5u0dn3yUrSiGngM84td/AjUWPhyF2vFS" }
