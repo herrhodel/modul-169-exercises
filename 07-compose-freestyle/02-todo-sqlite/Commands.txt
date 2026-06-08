@@ -1,7 +1,0 @@
-# Build the image
-
-docker build -t todos:1.0  .     
-
-# Run the image
-
-docker run -d -p 3000:3000 -v dbdaten:/etc/todos todos:1.0

@@ -1,11 +1,10 @@
 services:
   frontend:
-    build: .
+    build: ./app
     ports:
       - "3000:3000"
     volumes:
-      - .:/app
-      - /app/node_modules
       - tododb:/etc/todos
 volumes:
   tododb:
+
