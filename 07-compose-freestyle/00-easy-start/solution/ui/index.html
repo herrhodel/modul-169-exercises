@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Docker-Compose Demo</title>
+</head>
+
+<style>
+    body {
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+    }
+
+    #now {
+        font-size: 2em;
+    }
+</style>
+
+<body>
+    <div id="now"></div>
+
+    <script>
+        const $now = document.getElementById("now");
+
+        setInterval(async () => {
+            const res = await fetch("http://localhost:3000");
+            const { now } = await res.json();
+            $now.innerHTML = new Date(now);
+        }, 1000);
+    </script>
+</body>
+
+</html>

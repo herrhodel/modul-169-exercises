@@ -3,7 +3,7 @@ services:
   api:
     build:
       context: ./api
-      dockerfile: Dockerfile.api
+      dockerfile: Dockerfile
     ports:
       - 3000:3000
     networks:
@@ -11,7 +11,7 @@ services:
   ui:
     build:
       context: ./ui
-      dockerfile: Dockerfile.ui
+      dockerfile: Dockerfile
     ports:
       - 8070:80
     networks:
