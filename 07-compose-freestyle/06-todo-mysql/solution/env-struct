@@ -1,2 +1,0 @@
-MYSQL_ROOT_PASSWORD=password
-DATABASE_URL=mysql+pymysql://root:password@db:3306/tododb
