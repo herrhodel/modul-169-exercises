@@ -11,7 +11,7 @@ Um die 90% aller Webseiten basieren darauf.
 sind sehr ähnlich, sind in den neuesten Versionen jedoch nicht mehr 100%
 kompatibel.
 
-![Wordpress und MariaDB](https://github.com/herrhodel/modul-169-exercises/blob/main/05-compose-new/04-Diagramm/docker-compose.png?raw=true)
+![Wordpress und MariaDB](./docker-compose.png)
 
 ## Auftrag
 
